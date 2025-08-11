@@ -54,7 +54,7 @@ button{
   box-shadow: 0 -5px 10px rgba(132, 26, 128, 0.2);
   background-color:  rgb(255, 182, 255);
 }
-.label{
+#label{
   height: 100px;
   text-align:right;
   margin-right: 10px;

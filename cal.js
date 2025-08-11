@@ -1,14 +1,16 @@
+
 const buttons = document.querySelectorAll('.calc-btn');
 const operations = document.getElementById('label');
 const equals = document.getElementsByClassName('equals')[0];
 const clear = document.getElementsByClassName('clear')[0];
+const clear_entry = document.getElementsByClassName('clear-entry')[0];
 
-// 96 + 4
+const operators = ["+", "-", "*", "/"];
+
 buttons.forEach(button => {
   button.addEventListener('click', () => {
     const buttonValue = button.dataset.value;
     const lastChar = operations.innerText.slice(-1);
-    const operators = ["+", "-", "*", "/"];
     const isLastCharOperator = operators.includes(lastChar);
     const isButtonValueOperator = operators.includes(buttonValue);
 
@@ -38,34 +40,26 @@ buttons.forEach(button => {
   });
 });
 
-let number = 0;
+
 let result = 0;
-// 96 + 4
+
 equals.addEventListener('click', () => {
-  for(let i=0; i< operations.innerText.length; i++){
-    // check if it is a number
-    if(!isNaN(operations.innerText[i])){
-      number += parseInt(operations.innerText[i]);
-      number *= 10; // 960
-    }else{
-      // an operation
-      number /=10; // 96
-      switch (operations.innerText[i]) {
-          case '+':
-            result = parseFloat(firstValue) + parseFloat(secondValue);
-          case '-':
-            result = parseFloat(firstValue) - parseFloat(secondValue);
-          // Add other operations here
-        }
-      
-    }
-  }
-  operations.innerText = result;
+  let expr = operations.innerText.replace(/(\d+)%/g, '($1/100)');
+  result = Function(`return ${expr}`)();
+  operations.append(document.createElement('br'));
+  operations.innerHTML = `
+  <span style="font-size: 20px;">${operations.innerText}<br>
+  <span style="font-size: 30px;">${result}</span>
+`;
+
 }
 );
 
 clear.addEventListener('click', () => {
   operations.innerText = '';
   result = 0;
-  number = 0;
+});
+
+clear_entry.addEventListener('click', () => {
+  operations.innerText = operations.innerText.slice(0, -1);
 });

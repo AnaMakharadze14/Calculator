@@ -58,6 +58,12 @@ button{
   height: 100px;
   text-align:right;
   margin-right: 10px;
+  font-size: 20px;
+}
+#result{
+  font-size: 50px;
+  text-align: right;
+  margin-right: 10px;
 }
 
 @media (min-width: 386px){
